@@ -1,21 +1,24 @@
-let _employeServices = null;
+let _userServices = null;
 
 module.exports = class EmployeeController {
-  constructor(UserServices) {
-    _employeServices = UserServices;
+  constructor({ userServices }) {
+    _userServices = userServices;
   }
 
   async list(req, res, next) {
     try {
-      return res.status(200).json({ msg: 'List Data' });
+      const response = await _userServices.getAll();
+      return res.status(200).json({ response });
     } catch (error) {
       next(error);
     }
   }
 
   async get(req, res, next) {
+    const { params } = req;
     try {
-      return res.status(200).json({ msg: 'List One' });
+      const response = await _userServices.get(params.userId);
+      return res.status(200).json({ response });
     } catch (error) {
       next(error);
     }
@@ -23,24 +26,32 @@ module.exports = class EmployeeController {
 
   async create(req, res, next) {
     const { body } = req;
+    const response = await _userServices.create(body);
     try {
-      return res.status(201).json({ msg: 'User created succesfully' });
+      return res.status(201).json({ data: response });
     } catch (error) {
       next(error);
     }
   }
 
   async update(req, res, next) {
+    const {
+      params: { userId },
+      body,
+    } = req;
+    const response = await _userServices.update(userId, body);
     try {
-      return res.status(200).json({ msg: 'User updated succesfully' });
+      return res.status(200).json({ msg: response });
     } catch (error) {
       next(error);
     }
   }
 
   async delete(req, res, next) {
+    const { params } = req;
+    const response = await _userServices.delete(params.userId);
     try {
-      return res.status(200).json({ msg: 'User deleted succesfully' });
+      return res.status(200).json({ response });
     } catch (error) {
       next(error);
     }

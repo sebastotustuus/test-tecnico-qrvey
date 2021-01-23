@@ -1,3 +1,8 @@
 const app = require('./server');
 
-app.start().then().catch(console.log);
+app
+  .getConnection()
+  .then(() => {
+    app.start().then().catch(console.log);
+  })
+  .catch(console.log);

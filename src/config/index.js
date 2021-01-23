@@ -5,6 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
-  PORT: process.env.PORT,
+  PORT: process.env.PORT || 5000,
   MONGO_URI: process.env.MONGO_URI,
 };

@@ -4,15 +4,15 @@ const Startup = require('./startup');
 const Server = require('./server');
 const apiRoutes = require('../routes/index.routes');
 
-/**Models */
-// const db = require('../models');
+/**Middelwares */
+const middelwares = require('../middlewares/handleError');
 
 /**Routes */
 const routes = require('../routes');
 
 const _router = apiRoutes(routes(router), router);
 
-const server = new Server(config, _router, {}, null);
+const server = new Server(config, _router, middelwares);
 
 const app = new Startup({ server });
 

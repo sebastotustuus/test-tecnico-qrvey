@@ -1,31 +1,43 @@
 const express = require('express');
-
-let config = null;
-let _express = null;
-let _db = null;
+const mongoose = require('mongoose');
+const { MONGO_URI } = require('../config');
 
 class Server {
-  constructor(config, router, db, middlewares) {
+  constructor(config, router, middlewares) {
     this.config = config;
-    this._express = express().use(router);
-    this._db = db;
+    this.mongoose = mongoose;
+    this.express = express().use(router);
+    this.middlewares = middlewares;
     this.errorhandlers();
   }
 
   start() {
     return new Promise((resolve) => {
-      this._express.listen(this.config.PORT, () => {
+      this.express.listen(this.config.PORT, () => {
         console.log('App running on port', this.config.PORT);
         resolve();
       });
     });
   }
 
-  getConnection() {
-    return this._db;
+  async getConnection() {
+    mongoose.set('useCreateIndex', true);
+    await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true,
+    });
   }
 
-  errorhandlers() {}
+  errorhandlers() {
+    // Catch 404 Error
+    this.express.use(this.middlewares.notFoundHandler);
+
+    // Catch Middlewares Errors
+    this.express.use(this.middlewares.logErrors);
+    this.express.use(this.middlewares.wrapErrors);
+    this.express.use(this.middlewares.errorHandler);
+  }
 }
 
 module.exports = Server;

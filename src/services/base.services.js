@@ -5,23 +5,23 @@ class BaseServices {
   }
 
   async getAll() {
-    return 'GET ALL SERVICES';
+    return await _modelRepository.getAll();
   }
 
   async get(id) {
-    return 'GET ONE';
+    return await _modelRepository.get(id);
   }
 
   async create(entity) {
-    return 'CREATE USER';
+    return await _modelRepository.create(entity);
   }
 
   async update(id, entity) {
-    return 'UPDATE USER';
+    return await _modelRepository.update(id, entity);
   }
 
   async delete(id) {
-    return 'DELETE USER';
+    return await _modelRepository.delete(id);
   }
 }
 

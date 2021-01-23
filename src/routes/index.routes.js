@@ -8,7 +8,12 @@ module.exports = (modules, Router) => {
   const apiRouter = Router;
 
   // Middleware Routes
-  apiRouter.use(cors()).use(express.json()).use(compression()).use(helmet());
+  apiRouter
+    .use(cors())
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use(compression())
+    .use(helmet());
 
   // Routes
   apiRouter.use('/users', modules.userRoutes);
