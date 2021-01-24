@@ -1,13 +1,23 @@
+const types = require('../utils/common');
+
 let _userServices = null;
+let _fileServices = null;
 
 module.exports = class EmployeeController {
-  constructor({ userServices }) {
+  constructor({ userServices, fileServices }) {
+    _fileServices = fileServices;
     _userServices = userServices;
   }
 
   async list(req, res, next) {
     try {
+      const { accept = '' } = req.headers;
       const response = await _userServices.getAll();
+      if (accept === types.PDF) {
+        const result = await _fileServices.generatePdf(response, 'template-pdf');
+        return res.status(200).json(result);
+      }
+      
       return res.status(200).json({ response });
     } catch (error) {
       next(error);

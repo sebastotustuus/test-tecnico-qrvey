@@ -1,11 +1,12 @@
 let _modelRepository = null;
+const { userDto } = require('./dto/user.dto');
 class BaseServices {
   constructor(modelRepository) {
     _modelRepository = modelRepository;
   }
 
   async getAll() {
-    return await _modelRepository.getAll();
+    return userDto(await _modelRepository.getAll());
   }
 
   async get(id) {
