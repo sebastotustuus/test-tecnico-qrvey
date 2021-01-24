@@ -32,7 +32,8 @@
     "jsdocs": "1.0.0",
     "mongoose": "5.11.13",
     "puppeteer": "5.5.0",
-    "swagger-ui-express": "4.1.6"
+    "swagger-ui-express": "4.1.6",
+    "xlsx": "0.16.9"
   },
   "devDependencies": {
     "@babel/core": "7.12.10",

@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const hbs = require('handlebars');
+const xlsx = require('xlsx');
+const { getArrayUsers } = require('../utils/helpers');
 
 module.exports = class FileServices {
   async generatePdf(list, templateName = 'template-pdf') {
@@ -25,8 +27,26 @@ module.exports = class FileServices {
       console.log(error);
     }
   }
-  exportXlS() {
-    console.log('Exportar a Excel');
+  async exportXLS(response) {
+    try {
+      const result = getArrayUsers(response);
+      const columnsNames = ['Name', 'Username', 'Email', 'Position'];
+      const fileName = 'users-excel.xlsx';
+      await this.exportWorkSheet(result, columnsNames, 'Users', fileName);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async exportWorkSheet(data, workSheetColumnNames, workSheetName, fileName) {
+    const workBook = xlsx.utils.book_new();
+    const workSheetData = [workSheetColumnNames, ...data];
+    const workSheet = xlsx.utils.aoa_to_sheet(workSheetData);
+    xlsx.utils.book_append_sheet(workBook, workSheet, workSheetName);
+    xlsx.writeFile(
+      workBook,
+      path.resolve(process.cwd(), 'src', 'tmp', fileName),
+    );
   }
 
   async compileHbs(templateName, data) {

@@ -14,10 +14,15 @@ module.exports = class EmployeeController {
       const { accept = '' } = req.headers;
       const response = await _userServices.getAll();
       if (accept === types.PDF) {
-        const result = await _fileServices.generatePdf(response, 'template-pdf');
+        const result = await _fileServices.generatePdf(
+          response,
+          'template-pdf',
+        );
         return res.status(200).json(result);
       }
-      
+      if (accept === types.XLS) {
+        const result = await _fileServices.exportXLS(response);
+      }
       return res.status(200).json({ response });
     } catch (error) {
       next(error);
