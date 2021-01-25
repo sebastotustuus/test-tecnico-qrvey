@@ -1,5 +1,5 @@
 let _modelRepository = null;
-const { userDto } = require('./dto/user.dto');
+const { usersDto, userDto } = require('./dto/user.dto');
 class BaseServices {
   constructor(modelRepository) {
     _modelRepository = modelRepository;
@@ -7,19 +7,22 @@ class BaseServices {
 
   async getAll() {
     const response = await _modelRepository.getAll();
-    return userDto(response);
+    return usersDto(response);
   }
 
   async get(id) {
-    return await _modelRepository.get(id);
+    let user = await _modelRepository.get(id);
+    return userDto(user);
   }
 
   async create(entity) {
-    return await _modelRepository.create(entity);
+    const createdUser = await _modelRepository.create(entity);
+    return userDto(createdUser);
   }
 
   async update(id, entity) {
-    return await _modelRepository.update(id, entity);
+    const updatedUser = await _modelRepository.update(id, entity);
+    return userDto(updatedUser);
   }
 
   async delete(id) {
