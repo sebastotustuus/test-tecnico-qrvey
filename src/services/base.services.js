@@ -6,7 +6,8 @@ class BaseServices {
   }
 
   async getAll() {
-    return userDto(await _modelRepository.getAll());
+    const response = await _modelRepository.getAll();
+    return userDto(response);
   }
 
   async get(id) {

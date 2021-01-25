@@ -24,7 +24,7 @@ module.exports = class FileServices {
         relativeUrl: path.join(process.cwd(), 'mypdf.pdf'),
       };
     } catch (error) {
-      console.log(error);
+      return;
     }
   }
   async exportXLS(response) {
