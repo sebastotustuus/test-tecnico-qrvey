@@ -1,15 +1,7 @@
-const sinon = require('sinon');
 const repositoriesMock = require('../../__mocks__/repositories-mock');
 const UserServices = require('../../../services/user.services');
 const users = require('../../__mocks__/users.mock');
 
-jest.mock('../../../services/dto/user.dto', () => {
-  const usersMock = require('../../__mocks__/users.mock');
-  return {
-    usersDto: jest.fn().mockReturnValue(usersMock),
-    userDto: jest.fn().mockReturnValue(usersMock[3]),
-  };
-});
 
 describe('User Service', () => {
   const userService = new UserServices(repositoriesMock);
