@@ -1,3 +1,3 @@
-exports.notFoundMessage = (payload, msg) => {
-  return { ...payload, message: msg ?? 'Recurso no encontrado' };
+exports.responseMessage = (payload, msg) => {
+  return { ...payload, message: msg ?? '' };
 };
