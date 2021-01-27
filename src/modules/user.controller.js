@@ -3,7 +3,7 @@ const types = require('../utils/common');
 let _userServices = null;
 let _fileServices = null;
 
-module.exports = class EmployeeController {
+module.exports = class UserController {
   constructor({ userServices, fileServices }) {
     _fileServices = fileServices;
     _userServices = userServices;
@@ -13,15 +13,9 @@ module.exports = class EmployeeController {
     try {
       const { accept = '' } = req.headers;
       const response = await _userServices.getAll();
-      if (accept === types.PDF) {
-        const result = await _fileServices.generatePdf(
-          response,
-          'template-pdf',
-        );
-        return res.status(200).json(result);
-      }
-      if (accept === types.XLS) {
-        const result = await _fileServices.exportXLS(response);
+      if (types.includes(accept)) {
+        const result = await _fileServices.getFactoryMethod(accept, response, types);
+        return res.status(204).download(result.relativeUrl);
       }
       return res.status(200).json({ response });
     } catch (error) {

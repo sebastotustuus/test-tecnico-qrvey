@@ -9,6 +9,20 @@ describe('Users DTO', () => {
     expect(expected).not.toBeUndefined();
   });
 
+  it('should return a array formated', () => {
+    const expected = usersDto([]);
+    expect(expected.length).toBe([].length);
+    expect(expected).not.toBeNull();
+    expect(expected).not.toBeUndefined();
+  });
+
+  it('should return a array formated', () => {
+    const expected = usersDto(null);
+    expect(expected.length).toBe([].length);
+    expect(expected).not.toBeNull();
+    expect(expected).not.toBeUndefined();
+  });
+
   it('should return a object formated', () => {
     const expected = userDto(usersDbMock[0]);
     expect(expected).toHaveProperty('id');

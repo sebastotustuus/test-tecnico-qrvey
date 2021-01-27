@@ -6,6 +6,16 @@ const xlsx = require('xlsx');
 const { getArrayUsers } = require('../utils/helpers');
 
 module.exports = class FileServices {
+  async getFactoryMethod(accept, response, types) {
+    const [acceptXlS, acceptPDF] = types;
+    if (accept === acceptPDF) {
+      return await this.generatePdf(response, 'template-pdf');
+    }
+    if (accept === acceptXlS) {
+      return await this.exportXLS(response);
+    }
+  }
+
   async generatePdf(list, templateName = 'template-pdf') {
     try {
       const browser = await puppeteer.launch();
@@ -14,25 +24,43 @@ module.exports = class FileServices {
       await page.setContent(content);
       await page.emulateMediaType('screen');
       await page.pdf({
-        path: 'mypdf.pdf',
+        path: 'src/tmp/users-table.pdf',
         format: 'A4',
         printBackground: true,
       });
       await browser.close();
       return {
         msg: 'File created succesfully',
-        relativeUrl: path.join(process.cwd(), 'mypdf.pdf'),
+        relativeUrl: path.join(process.cwd(), 'src/tmp/users-table.pdf'),
       };
     } catch (error) {
       return;
     }
   }
+
+  async compileHbs(templateName, data) {
+    const filePath = path.join(
+      process.cwd(),
+      'src',
+      'utils',
+      'templates',
+      `${templateName}.hbs`,
+    );
+    const html = fs.readFileSync(filePath, 'utf-8');
+    return hbs.compile(html)({ data: data });
+  }
+
   async exportXLS(response) {
     try {
       const result = getArrayUsers(response);
       const columnsNames = ['Name', 'Username', 'Email', 'Position'];
       const fileName = 'users-excel.xlsx';
-      await this.exportWorkSheet(result, columnsNames, 'Users', fileName);
+      return await this.exportWorkSheet(
+        result,
+        columnsNames,
+        'Users',
+        fileName,
+      );
     } catch (err) {
       throw err;
     }
@@ -47,17 +75,9 @@ module.exports = class FileServices {
       workBook,
       path.resolve(process.cwd(), 'src', 'tmp', fileName),
     );
-  }
-
-  async compileHbs(templateName, data) {
-    const filePath = path.join(
-      process.cwd(),
-      'src',
-      'utils',
-      'templates',
-      `${templateName}.hbs`,
-    );
-    const html = fs.readFileSync(filePath, 'utf-8');
-    return hbs.compile(html)({ data: data });
+    return {
+      msg: 'File xls created succesfully',
+      relativeUrl: path.join(process.cwd(), `/src/tmp/${fileName}`),
+    };
   }
 };
