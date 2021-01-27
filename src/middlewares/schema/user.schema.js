@@ -16,14 +16,14 @@ const companySchema = joi
   })
   .length(2);
 
-createUserSchema = {
+const createUserSchema = {
   name: nameSchema.required(),
   username: userNameSchema.required(),
   email: emailSchema.required(),
   company: companySchema.required(),
 };
 
-updateUserSchema = {
+const updateUserSchema = {
   name: nameSchema,
   username: userNameSchema,
   email: emailSchema,

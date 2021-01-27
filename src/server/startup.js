@@ -7,6 +7,10 @@ class Startup {
     await this.server.start();
   }
 
+  start_test() {
+    return this.server.start_test();
+  }
+
   getConnection() {
     return this.server.getConnection();
   }

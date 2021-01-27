@@ -6,7 +6,8 @@ class Server {
   constructor(config, router, middlewares) {
     this.config = config;
     this.mongoose = mongoose;
-    this.express = express().use(router);
+    this.express = express();
+    this.express.use(router);
     this.middlewares = middlewares;
     this.errorhandlers();
   }
@@ -14,10 +15,13 @@ class Server {
   start() {
     return new Promise((resolve) => {
       this.express.listen(this.config.PORT, () => {
-        console.log('App running on port', this.config.PORT);
         resolve();
       });
     });
+  }
+
+  start_test() {
+    return this.express;
   }
 
   async getConnection() {
