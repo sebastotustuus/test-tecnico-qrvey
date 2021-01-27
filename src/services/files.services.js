@@ -29,10 +29,7 @@ module.exports = class FileServices {
         printBackground: true,
       });
       await browser.close();
-      return {
-        msg: 'File created succesfully',
-        relativeUrl: path.join(process.cwd(), 'src/tmp/users-table.pdf'),
-      };
+      return path.join(process.cwd(), 'src/tmp/users-table.pdf')
     } catch (error) {
       return;
     }
@@ -53,7 +50,7 @@ module.exports = class FileServices {
   async exportXLS(response) {
     try {
       const result = getArrayUsers(response);
-      const columnsNames = ['Name', 'Username', 'Email', 'Position'];
+      const columnsNames = ['Name', 'Email', 'Username', 'Position'];
       const fileName = 'users-excel.xlsx';
       return await this.exportWorkSheet(
         result,
@@ -75,9 +72,13 @@ module.exports = class FileServices {
       workBook,
       path.resolve(process.cwd(), 'src', 'tmp', fileName),
     );
-    return {
-      msg: 'File xls created succesfully',
-      relativeUrl: path.join(process.cwd(), `/src/tmp/${fileName}`),
-    };
+    return path.join(process.cwd(), `/src/tmp/${fileName}`)
+  }
+
+  async removeFile(filePath) {
+    fs.unlink(filePath, (err) => {
+      if (err) console.error(err);
+      return;
+    });
   }
 };

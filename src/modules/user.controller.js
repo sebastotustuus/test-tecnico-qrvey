@@ -1,23 +1,25 @@
 const types = require('../utils/common');
 
-let _userServices = null;
-let _fileServices = null;
+let userServices = null;
+let fileServices = null;
 
 module.exports = class UserController {
-  constructor({ userServices, fileServices }) {
-    _fileServices = fileServices;
-    _userServices = userServices;
+  constructor({ serviceUser, serviceFile }) {
+    fileServices = serviceFile;
+    userServices = serviceUser;
   }
 
   async list(req, res, next) {
     try {
       const { accept = '' } = req.headers;
-      const response = await _userServices.getAll();
+      const response = await userServices.getAll();
       if (types.includes(accept)) {
-        const result = await _fileServices.getFactoryMethod(accept, response, types);
-        return res.status(204).download(result.relativeUrl);
+        const result = await fileServices.getFactoryMethod(accept, response, types);
+        res.status(200).download(result);
+        return;
       }
-      return res.status(200).json({ response });
+      res.status(200).json({ response });
+      return;
     } catch (error) {
       next(error);
     }
@@ -26,7 +28,7 @@ module.exports = class UserController {
   async get(req, res, next) {
     const { params } = req;
     try {
-      const response = await _userServices.get(params.userId);
+      const response = await userServices.get(params.userId);
       return res.status(200).json({ response });
     } catch (error) {
       next(error);
@@ -35,7 +37,7 @@ module.exports = class UserController {
 
   async create(req, res, next) {
     const { body } = req;
-    const response = await _userServices.create(body);
+    const response = await userServices.create(body);
     try {
       return res.status(201).json({ data: response });
     } catch (error) {
@@ -48,7 +50,7 @@ module.exports = class UserController {
       params: { userId },
       body,
     } = req;
-    const response = await _userServices.update(userId, body);
+    const response = await userServices.update(userId, body);
     try {
       return res.status(200).json({ msg: response });
     } catch (error) {
@@ -58,7 +60,7 @@ module.exports = class UserController {
 
   async delete(req, res, next) {
     const { params } = req;
-    const response = await _userServices.delete(params.userId);
+    const response = await userServices.delete(params.userId);
     try {
       return res.status(200).json({ response });
     } catch (error) {
