@@ -1,20 +1,20 @@
 const types = require('../utils/common');
 
-let userServices = null;
-let fileServices = null;
+let serviceUser = null;
+let servicesFile = null;
 
 module.exports = class UserController {
-  constructor({ serviceUser, serviceFile }) {
-    fileServices = serviceFile;
-    userServices = serviceUser;
+  constructor({ userServices, fileServices }) {
+    servicesFile = fileServices;
+    serviceUser = userServices;
   }
 
   async list(req, res, next) {
     try {
       const { accept = '' } = req.headers;
-      const response = await userServices.getAll();
+      const response = await serviceUser.getAll();
       if (types.includes(accept)) {
-        const result = await fileServices.getFactoryMethod(accept, response, types);
+        const result = await servicesFile.getFactoryMethod(accept, response, types);
         res.status(200).download(result);
         return;
       }
@@ -28,7 +28,7 @@ module.exports = class UserController {
   async get(req, res, next) {
     const { params } = req;
     try {
-      const response = await userServices.get(params.userId);
+      const response = await serviceUser.get(params.userId);
       return res.status(200).json({ response });
     } catch (error) {
       next(error);
@@ -37,7 +37,7 @@ module.exports = class UserController {
 
   async create(req, res, next) {
     const { body } = req;
-    const response = await userServices.create(body);
+    const response = await serviceUser.create(body);
     try {
       return res.status(201).json({ data: response });
     } catch (error) {
@@ -50,7 +50,7 @@ module.exports = class UserController {
       params: { userId },
       body,
     } = req;
-    const response = await userServices.update(userId, body);
+    const response = await serviceUser.update(userId, body);
     try {
       return res.status(200).json({ msg: response });
     } catch (error) {
@@ -60,7 +60,7 @@ module.exports = class UserController {
 
   async delete(req, res, next) {
     const { params } = req;
-    const response = await userServices.delete(params.userId);
+    const response = await serviceUser.delete(params.userId);
     try {
       return res.status(200).json({ response });
     } catch (error) {
