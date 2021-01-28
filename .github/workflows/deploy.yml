@@ -1,13 +1,12 @@
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 name: Deploy App to Vercel
 
 jobs:
   deploy:
-    name: deploy
+    name: deploy-app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
