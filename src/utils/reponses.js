@@ -1,7 +1,7 @@
 const { HOST, PORT } = require('../config');
 
-exports.responseMessage = (payload, msg) => {
-  return { ...payload, message: msg ?? '' };
+exports.responseMessage = (payload, msg = "") => {
+  return { ...payload, message: msg};
 };
 
 exports.getRelativeUrl = (fileName) => {
