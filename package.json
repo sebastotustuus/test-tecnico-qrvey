@@ -7,7 +7,9 @@
     "start": "NODE_ENV=production node index.js",
     "start:dev": "NODE_ENV=development nodemon index.js",
     "test": " NODE_ENV=staging jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "start:vercel": "npm test && vercel",
+    "vercel:dev": "npm test && vercel dev"
   },
   "repository": {
     "type": "git",

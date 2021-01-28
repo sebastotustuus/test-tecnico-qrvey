@@ -6,7 +6,7 @@ describe('User API', () => {
   const { id, ..._user } = users[3];
   it('GET / should return the users when called', (done) => {
     request(app.start_test())
-      .get('/api/v1/users/list')
+      .get('/api/users/list')
       .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
@@ -19,7 +19,7 @@ describe('User API', () => {
 
   it('GET / should return one user when called', (done) => {
     request(app.start_test())
-      .get('/api/v1/users/600c88d305d649a01f133998')
+      .get('/api/users/600c88d305d649a01f133998')
       .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
@@ -34,7 +34,7 @@ describe('User API', () => {
 
   it('POST / should create a user', (done) => {
     request(app.start_test())
-      .post('/api/v1/users')
+      .post('/api/users')
       .send(_user)
       .expect('Content-type', /json/)
       .expect(201, done);
@@ -42,7 +42,7 @@ describe('User API', () => {
 
   it('PATCH /should return a updated user', (done) => {
     request(app.start_test())
-      .patch('/api/v1/users/600c88d305d649a01f133998')
+      .patch('/api/users/600c88d305d649a01f133998')
       .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
@@ -56,7 +56,7 @@ describe('User API', () => {
 
   it('DELETE /should return a true flag', (done) => {
     request(app.start_test())
-      .delete('/api/v1/users/600c88d305d649a01f133998')
+      .delete('/api/users/600c88d305d649a01f133998')
       .expect('Content-type', /json/)
       .expect(200)
       .end((err, res) => {
@@ -70,7 +70,7 @@ describe('User API', () => {
 
   it('GET / should return a 404 status code', (done) => {
     request(app.start_test())
-      .get('/api/v1/all-users-wrong/list')
+      .get('/api/all-users-wrong/list')
       .expect('Content-type', /json/)
       .expect(404)
       .end((err, res) => {

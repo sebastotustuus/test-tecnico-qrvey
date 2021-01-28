@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const { MONGO_URI } = require('../config');
 
 class Server {
@@ -7,6 +8,7 @@ class Server {
     this.config = config;
     this.mongoose = mongoose;
     this.express = express();
+    this.express.use('/static', express.static(path.join(__dirname, '../tmp')));
     this.express.use(router);
     this.middlewares = middlewares;
     this.errorhandlers();

@@ -1,4 +1,4 @@
-const types = require('../utils/common');
+const path = require('path');
 
 let serviceUser = null;
 let servicesFile = null;
@@ -65,8 +65,14 @@ module.exports = class UserController {
   async pdf(req, res, next) {
     try {
       const response = await serviceUser.getAll();
-      const result = await servicesFile.generatePdf(response);
-      res.status(204).download(result);
+      if (response.length > 0) {
+        const fileName = await servicesFile.generatePdf(response);
+        res.status(200).download(`src/tmp/${fileName}`, fileName);
+      } else {
+        res.status(200).json({
+          message: 'No existen usuarios creados para exportar el pdf',
+        });
+      }
     } catch (err) {
       next(err);
     }
@@ -75,8 +81,14 @@ module.exports = class UserController {
   async xlsx(req, res, next) {
     try {
       const response = await serviceUser.getAll();
-      const result = await servicesFile.exportXLS(response);
-      res.status(204).download(result);
+      if (response.length > 0) {
+        const fileName = await servicesFile.exportXLS(response);
+        res.status(200).download(`src/tmp/${fileName}`, fileName);
+      } else {
+        res.status(200).json({
+          message: 'No existen usuarios creados para generar el reporte',
+        });
+      }
     } catch (err) {
       next(err);
     }

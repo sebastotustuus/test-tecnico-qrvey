@@ -6,21 +6,21 @@ const xlsx = require('xlsx');
 const { getArrayUsers } = require('../utils/helpers');
 
 module.exports = class FileServices {
-
   async generatePdf(list, templateName = 'template-pdf') {
     try {
+      const fileName = 'users-table-pdf';
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       const content = await this.compileHbs(templateName, list);
       await page.setContent(content);
       await page.emulateMediaType('screen');
       await page.pdf({
-        path: 'src/tmp/users-table.pdf',
+        path: `src/tmp/${fileName}`,
         format: 'A4',
         printBackground: true,
       });
       await browser.close();
-      return path.join(process.cwd(), 'src/tmp/users-table.pdf')
+      return fileName;
     } catch (error) {
       return;
     }
@@ -59,17 +59,10 @@ module.exports = class FileServices {
     const workSheetData = [workSheetColumnNames, ...data];
     const workSheet = xlsx.utils.aoa_to_sheet(workSheetData);
     xlsx.utils.book_append_sheet(workBook, workSheet, workSheetName);
-    xlsx.writeFile(
+    await xlsx.writeFile(
       workBook,
       path.resolve(process.cwd(), 'src', 'tmp', fileName),
     );
-    return path.join(process.cwd(), `/src/tmp/${fileName}`)
-  }
-
-  async removeFile(filePath) {
-    fs.unlink(filePath, (err) => {
-      if (err) console.error(err);
-      return;
-    });
+    return fileName;
   }
 };
