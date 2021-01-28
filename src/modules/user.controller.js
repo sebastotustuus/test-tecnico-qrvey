@@ -11,13 +11,7 @@ module.exports = class UserController {
 
   async list(req, res, next) {
     try {
-      const { accept = '' } = req.headers;
       const response = await serviceUser.getAll();
-      if (types.includes(accept)) {
-        const result = await servicesFile.getFactoryMethod(accept, response, types);
-        res.status(200).download(result);
-        return;
-      }
       res.status(200).json({ response });
       return;
     } catch (error) {
@@ -65,6 +59,26 @@ module.exports = class UserController {
       return res.status(200).json({ response });
     } catch (error) {
       next(error);
+    }
+  }
+
+  async pdf(req, res, next) {
+    try {
+      const response = await serviceUser.getAll();
+      const result = await servicesFile.generatePdf(response);
+      res.status(204).download(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async xlsx(req, res, next) {
+    try {
+      const response = await serviceUser.getAll();
+      const result = await servicesFile.exportXLS(response);
+      res.status(204).download(result);
+    } catch (err) {
+      next(err);
     }
   }
 };

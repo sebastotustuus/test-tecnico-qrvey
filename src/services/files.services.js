@@ -6,15 +6,6 @@ const xlsx = require('xlsx');
 const { getArrayUsers } = require('../utils/helpers');
 
 module.exports = class FileServices {
-  async getFactoryMethod(accept, response, types) {
-    const [acceptXlS, acceptPDF] = types;
-    if (accept === acceptPDF) {
-      return await this.generatePdf(response, 'template-pdf');
-    }
-    if (accept === acceptXlS) {
-      return await this.exportXLS(response);
-    }
-  }
 
   async generatePdf(list, templateName = 'template-pdf') {
     try {

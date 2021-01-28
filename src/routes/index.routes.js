@@ -19,7 +19,12 @@ module.exports = (modules, Router) => {
   apiRouter.use('/users', modules.userRoutes);
 
   // Api Inyection
-  router.use('/api/v1', apiRouter);
+  router.use('/api', apiRouter);
+  router.get('/', (req, res) => {
+    res.status(200).json({
+      message: 'Bienvenido a Test Qrvey API'
+    })
+  })
 
   return router;
 };
