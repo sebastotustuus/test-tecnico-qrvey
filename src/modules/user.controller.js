@@ -83,6 +83,7 @@ module.exports = class UserController {
       const response = await serviceUser.getAll();
       if (response.length > 0) {
         const fileName = await servicesFile.exportXLS(response);
+        console.log(fileName);
         res.status(200).download(`src/tmp/${fileName}`, fileName);
       } else {
         res.status(200).json({
