@@ -1,4 +1,4 @@
-const { HOST, PORT } = require('../config');
+const { getRelativeUrl } = require('../utils/reponses');
 
 let serviceUser = null;
 let servicesFile = null;
@@ -70,7 +70,7 @@ module.exports = class UserController {
         res.status(200).json({
           statusCode: 200,
           message: '',
-          relativeUrl: `http://${HOST}:${PORT}/static/users-table.pdf`,
+          relativeUrl: getRelativeUrl(fileName),
         });
       } else {
         res.status(200).json({
@@ -90,7 +90,7 @@ module.exports = class UserController {
         res.status(200).json({
           statusCode: 200,
           message: '',
-          relativeUrl: `http://${HOST}:${PORT}/static/users-excel.xlsx`,
+          relativeUrl: getRelativeUrl(fileName),
         });
       } else {
         res.status(200).json({
