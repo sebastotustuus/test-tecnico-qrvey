@@ -1,5 +1,4 @@
 const { getRelativeUrl } = require('../utils/reponses');
-const path = require('path');
 
 let serviceUser = null;
 let servicesFile = null;
@@ -68,9 +67,11 @@ module.exports = class UserController {
       const response = await serviceUser.getAll();
       if (response.length > 0) {
         await servicesFile.generatePdf(response);
-        res
-          .status(200)
-          .download(path.resolve('src/tmp/users-table.pdf'), 'users-table.pdf');
+        res.status(200).json({
+          statusCode: 200,
+          message: '',
+          relativeUrl: getRelativeUrl('users-table.pdf'),
+        });
       } else {
         res.status(200).json({
           message: 'No existen usuarios creados para exportar el pdf',
