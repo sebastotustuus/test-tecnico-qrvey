@@ -66,11 +66,11 @@ module.exports = class UserController {
     try {
       const response = await serviceUser.getAll();
       if (response.length > 0) {
-        const fileName = await servicesFile.generatePdf(response);
+        await servicesFile.generatePdf(response);
         res.status(200).json({
           statusCode: 200,
           message: '',
-          relativeUrl: getRelativeUrl(fileName),
+          relativeUrl: getRelativeUrl('users-table.pdf'),
         });
       } else {
         res.status(200).json({
@@ -86,11 +86,11 @@ module.exports = class UserController {
     try {
       const response = await serviceUser.getAll();
       if (response.length > 0) {
-        const fileName = await servicesFile.exportXLS(response);
+        await servicesFile.exportXLS(response);
         res.status(200).json({
           statusCode: 200,
           message: '',
-          relativeUrl: getRelativeUrl(fileName),
+          relativeUrl: getRelativeUrl('users-excel.xlsx'),
         });
       } else {
         res.status(200).json({
