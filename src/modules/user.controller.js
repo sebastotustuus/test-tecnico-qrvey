@@ -23,7 +23,7 @@ module.exports = class UserController {
     const { params } = req;
     try {
       const response = await serviceUser.get(params.userId);
-      return res.status(200).json({ response });
+      return res.status(200).json({ data: response });
     } catch (error) {
       next(error);
     }
