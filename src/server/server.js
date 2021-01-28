@@ -15,6 +15,7 @@ class Server {
   start() {
     return new Promise((resolve) => {
       this.express.listen(this.config.PORT, () => {
+        console.log('Server on port:', this.config.PORT);
         resolve();
       });
     });

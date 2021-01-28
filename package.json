@@ -4,8 +4,8 @@
   "description": "Este es un test tecnico como parte del proceso de selección a Qrvey",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node src/index.js",
-    "start:dev": "NODE_ENV=development nodemon src/index.js",
+    "start": "NODE_ENV=production node index.js",
+    "start:dev": "NODE_ENV=development nodemon index.js",
     "test": " NODE_ENV=staging jest --coverage",
     "test:watch": "jest --watch"
   },
