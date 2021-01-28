@@ -67,7 +67,7 @@ module.exports = class UserController {
       const response = await serviceUser.getAll();
       if (response.length > 0) {
         const fileName = await servicesFile.generatePdf(response);
-        res.status(200).download(`src/tmp/${fileName}`, fileName);
+        res.status(200).download(`src/tmp/users-table.pdf`, 'users-table.pdf');
       } else {
         res.status(200).json({
           message: 'No existen usuarios creados para exportar el pdf',
@@ -84,7 +84,7 @@ module.exports = class UserController {
       if (response.length > 0) {
         const fileName = await servicesFile.exportXLS(response);
         console.log(fileName);
-        res.status(200).download(`src/tmp/${fileName}`, fileName);
+        res.status(200).download(`src/tmp/users-excel.xlsx`, 'users-excel.xlsx');
       } else {
         res.status(200).json({
           message: 'No existen usuarios creados para generar el reporte',
