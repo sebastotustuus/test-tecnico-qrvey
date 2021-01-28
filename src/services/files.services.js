@@ -8,7 +8,7 @@ const { getArrayUsers } = require('../utils/helpers');
 module.exports = class FileServices {
   async generatePdf(list, templateName = 'template-pdf') {
     try {
-      const fileName = 'users-table-pdf';
+      const fileName = 'users-table.pdf';
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       const content = await this.compileHbs(templateName, list);

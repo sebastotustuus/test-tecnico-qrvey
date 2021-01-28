@@ -24,8 +24,8 @@ describe('User API', () => {
       .expect(200)
       .end((err, res) => {
         if (err) throw err;
-        expect(res.body).toHaveProperty(['response', 'id']);
-        expect(res.body.response.id).toMatch(/^[0-9a-fA]{24}$/);
+        expect(res.body).toHaveProperty(['data', 'id']);
+        expect(res.body.data.id).toMatch(/^[0-9a-fA]{24}$/);
         expect(res.body).not.toBeNull();
         expect(res.body).not.toBeUndefined();
         done();
