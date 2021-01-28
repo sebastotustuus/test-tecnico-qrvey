@@ -2,11 +2,11 @@ on:
   push:
     branches: [ main ]
 
-name: Deploy App to Vercel
+name: Deplpoy App to Vercel
 
 jobs:
   deploy:
-    name: deploy-app
+    name: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,4 +17,4 @@ jobs:
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-          working-directory: ./
+          working-directory: ./sub-directory
