@@ -1,7 +1,7 @@
 node_modules
 .DS*
 coverage
-src/tmp
+*.xlsx
+*.pdf
 .env
-
 .vercel
