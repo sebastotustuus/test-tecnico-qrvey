@@ -3,10 +3,11 @@ on:
     branches:
       - main
 
-name: deploy app
+name: Deploy App to Vercel
 
 jobs:
   deploy:
+    name: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
