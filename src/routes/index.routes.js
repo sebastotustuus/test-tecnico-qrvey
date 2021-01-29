@@ -15,9 +15,7 @@ module.exports = (modules, Router) => {
     .use(compression())
     .use(helmet());
 
-  // Routes
-  apiRouter.use(modules.userRoutes);
-
+  
   // Api Inyection
   router.use('/api', apiRouter);
 

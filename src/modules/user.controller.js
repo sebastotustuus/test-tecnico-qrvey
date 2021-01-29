@@ -1,4 +1,4 @@
-const { getRelativeUrl } = require('../utils/reponses');
+const { getRelativeUrl } = require('../utils/helpers');
 
 let serviceUser = null;
 let servicesFile = null;
@@ -46,7 +46,7 @@ module.exports = class UserController {
     } = req;
     const response = await serviceUser.update(userId, body);
     try {
-      return res.status(200).json({ msg: response });
+      return res.status(200).json({ response });
     } catch (error) {
       next(error);
     }
