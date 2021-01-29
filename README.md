@@ -45,6 +45,8 @@ $ npm start:dev
 $ npm test
 ```
 
+Coverage: ![Coverage](./docs/img/coverage-image.png)
+
 # - Deploy of the App
 
 The app is deployed in a serverless cloud calle [Vercel](https://vercel.com/). The URl of the api deployed is the next:
@@ -53,10 +55,10 @@ https://qrvey-test-tecnico.vercel.app/
 
 ## Procces to deploy:
 
-- Sign Up in Vercel web page (Just one time). Ver imagen: [Imagen](https://drive.google.com/file/d/1fke8iziN1r0gfV0AufrpwgZ9TdpAQGey/view?usp=sharing)
-- Link Vercel with my Github Repo project (Just one time). Ver imagen: [Imagen](https://drive.google.com/file/d/1OmS6OpA17WzqzXACtAeRcHbDL8WBqA1q/view?usp=sharing)
-- Config that make a new deploy for each push to main branch (Just one time). Ver Imagen: [Imagen]()
-- Config Env vars (Just one time). Ver Imagen: [imagen]()
+- Sign Up in Vercel web page (Just one time). Ver imagen: ![Singup-Vercel](./docs/img/login-vercel.png)
+- Link Vercel with my Github Repo project (Just one time). Ver imagen: ![Connect-Github](./docs/img/connect-github.png)
+- Config that make a new deploy for each push to main branch (Just one time). Ver Imagen: ![New-Deploy](./docs/img/default-branch-deploy.png)
+- Config Env vars (Just one time). Ver Imagen: ![Env-Vars](./docs/img/config-env-vars.png)
 - Config the file vercel.json (Each time that I need a new config)
 - `git push main` (Each time that I want a new deploy)
 - App Deployed
