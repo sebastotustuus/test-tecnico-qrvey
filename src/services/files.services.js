@@ -61,8 +61,7 @@ module.exports = class FileServices {
     xlsx.utils.book_append_sheet(workBook, workSheet, workSheetName);
     await xlsx.writeFile(
       workBook,
-      path.resolve(process.cwd(), 'src', 'tmp', fileName),
+      path.join(process.cwd(), 'src', 'tmp', fileName),
     );
-    return fileName;
   }
 };

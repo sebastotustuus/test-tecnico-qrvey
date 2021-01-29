@@ -27,8 +27,8 @@ exports.notFoundHandler = (req, res) => {
 };
 
 const withErrorsStack = (err, stack) => {
-  if (process.env.NODE_ENV.trim() == 'development') {
-    return { ...err, stack };
-  }
-  return err;
+  // if (process.env.NODE_ENV.trim() == 'development') {
+     return { ...err, stack };
+  // }
+  // return err;
 };
