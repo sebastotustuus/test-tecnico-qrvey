@@ -47,7 +47,7 @@ describe('User API', () => {
       .expect(200)
       .end((err, res) => {
         if (err) throw err;
-        expect(res.body).toHaveProperty(['msg', 'id']);
+        expect(res.body).toHaveProperty(['response', 'id']);
         expect(res.body).not.toBeNull();
         expect(res.body).not.toBeUndefined();
         done();
