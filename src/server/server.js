@@ -8,7 +8,7 @@ class Server {
     this.config = config;
     this.mongoose = mongoose;
     this.express = express();
-    this.express.use('/static', express.static(path.join(__dirname, '../tmp')));
+    this.express.use('/files', express.static(path.join('/tmp')));
     this.express.use(router);
     this.middlewares = middlewares;
     this.errorhandlers();

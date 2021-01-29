@@ -6,7 +6,7 @@ exports.responseMessage = (payload, msg = '') => {
 
 exports.getRelativeUrl = (fileName) => {
   if (process.env.NODE_ENV.trim() == 'development') {
-    return `${HOST}:${PORT}/static/${fileName}`;
+    return `${HOST}:${PORT}/files/${fileName}`;
   }
-  return `${HOST}/static/${fileName}`;
+  return `${HOST}/files/${fileName}`;
 };

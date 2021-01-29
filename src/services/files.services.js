@@ -15,7 +15,7 @@ module.exports = class FileServices {
       await page.setContent(content);
       await page.emulateMediaType('screen');
       await page.pdf({
-        path: `src/tmp/${fileName}`,
+        path: `/tmp/${fileName}`,
         format: 'A4',
         printBackground: true,
       });
@@ -59,9 +59,6 @@ module.exports = class FileServices {
     const workSheetData = [workSheetColumnNames, ...data];
     const workSheet = xlsx.utils.aoa_to_sheet(workSheetData);
     xlsx.utils.book_append_sheet(workBook, workSheet, workSheetName);
-    await xlsx.writeFile(
-      workBook,
-      path.join(process.cwd(), 'src', 'tmp', fileName),
-    );
+    await xlsx.writeFile(workBook, `/tmp/${fileName}`);
   }
 };
