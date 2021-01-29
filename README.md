@@ -27,6 +27,10 @@ The project requires [Node.js] (https://nodejs.org/es/) v10+ to run. Preferably 
 $ npm install
 ```
 
+#### Config Enviroment Variables
+
+```Ejemplo:``` [Env.Example](./.env.example)
+
 #### Local Project
 
 ```sh
