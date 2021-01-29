@@ -15,7 +15,7 @@ module.exports = class FileServices {
       await page.setContent(content);
       await page.emulateMediaType('screen');
       await page.pdf({
-        path: `/tmp/${fileName}`,
+        path: `src/tmp/${fileName}`,
         format: 'A4',
         printBackground: true,
       });

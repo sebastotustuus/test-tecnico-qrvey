@@ -70,7 +70,7 @@ module.exports = class UserController {
         res.status(200).json({
           statusCode: 200,
           message: '',
-          relativeUrl: getRelativeUrl('users-table.pdf'),
+          relativeUrl: getRelativeUrl('users-table.pdf', 'static'),
         });
       } else {
         res.status(200).json({
@@ -90,7 +90,7 @@ module.exports = class UserController {
         res.status(200).json({
           statusCode: 200,
           message: '',
-          relativeUrl: getRelativeUrl('users-excel.xlsx'),
+          relativeUrl: getRelativeUrl('users-excel.xlsx', 'file'),
         });
       } else {
         res.status(200).json({
