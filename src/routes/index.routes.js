@@ -16,7 +16,7 @@ module.exports = (modules, Router) => {
     .use(helmet());
 
   // Routes
-  apiRouter.use('/users', modules.userRoutes);
+  apiRouter.use(modules.userRoutes);
 
   // Api Inyection
   router.use('/api', apiRouter);
